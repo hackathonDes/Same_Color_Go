@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Play Same Color Go</title>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.min.js"></script>
+
+</head>
+    
+<body>
+    <script src="samecolorgo.js"></script>
+    <div id="imagecontainer" style="position: absolute;"><img src="kayawood.jpeg" height="620" width="620"></div>
+    <div id="myContainer"></div>
+    <div id="toMoveBox">Black to move</div>
+    <div id="blackInfo" class="infoBox">
+        <p class="colorTitle">'Black':</p>
+        <p id="blackScore" class="scoreHolder">+0</p>
+        <button class="prButton" onclick="Pass(1)">Pass</button>
+        <button class="prButton" onclick ="Resign('black')">Resign</button>
+        
+        <button id="blackEndButton" class="scoreButton" onclick="endFunction('black')">Accept Dead Stones</button>
+    </div>
+    <div id="whiteInfo" class="infoBox">
+        <p class="colorTitle">'White':</p>
+        <p id="whiteScore" class="scoreHolder">+6.5</p>
+        <button class="prButton" onclick="Pass(-1)">Pass</button>
+        <button class="prButton" onclick="Resign('white')">Resign</button>
+        
+        <button id="whiteEndButton" class="scoreButton" onclick="endFunction('white')">Accept Dead Stones </button>
+    </div>
+    <button id="colorButton" class="bigButton" onclick="hideAndSeek()">Show Colors</button>
+    <button id="restartButton" class="bigButton" onclick="Restart()">New Game</button>
+    <button id="settingsButton" class="bigButton" onclick="showSettings()">Settings</button>
+    
+    <div id="settingsBox">
+        <p class="setting">Boardsize: 
+            <span id="9Box" style="color: lightgray" onclick="changeBoard(9)">9x9</span> 
+            <span id="13Box" style="color: lightgray" onclick="changeBoard(13)">13x13</span> 
+            <span id="19Box" onclick="changeBoard(19)">19x19</span>
+        </p>
+        <p class="setting">
+            <label for="quantity">Komi: </label>
+            <input type="number" id="komiInput" name="quantity" value="6.5">
+        </p>
+        <p class="setting">
+            <label for="quantity">Handicap: </label>
+            <input type="number" id="handyInput" name="quantity" value="0" min="0" max="9">
+        </p>
+        
+        <button id="applyButton" class="cancelorapply" onclick="apply()">Apply</button>
+        <button id="cancelButton" class="cancelorapply" onclick="cancelSettings()">Cancel</button>
+    </div>
+    
+    <style>
+        #myContainer{
+            position: absolute;
+            left: 8px;
+            top: 8px;
+        }
+        #toMoveBox{
+            position: absolute; 
+            left: 650px;
+            border-style: solid;
+            color: white;
+            background-color: black;
+            width: 400px;
+            border-radius: 15px;
+            text-align: center;
+            padding: 10px;
+        }
+        .infoBox{
+            position: absolute;
+            width: 195px;
+            height: 250px;
+            border-radius: 15px;
+            text-align: center;
+            border-style: solid;
+            top: 60px;
+        }
+        #blackInfo{
+            left: 650px;
+            color: white;
+            background-color: black;
+        }
+        #whiteInfo{
+            left: 870px;
+            color: black;
+            background-color: white;
+        }
+        .colorTitle{
+            font-weight: 600;
+        }
+        .scoreHolder{
+            font-weight: 400;
+            font-size: 40px;
+            margin: 0px;
+        }
+        .prButton{
+            width: 80px;
+            height: 30px;
+            margin: 15px;
+            border-radius: 10px;
+            background-color: white;
+        }
+        .bigButton{
+            position: absolute;
+            left: 760px;
+            width: 200px;
+            height: 40px;
+            border-radius: 15px;
+            background-color: white;
+        }
+        #colorButton{
+            top: 330px;
+        }
+        #restartButton{
+            top: 380px;
+        }
+        #settingsButton{
+            top: 430px;
+        }
+        .scoreButton{
+            position: absolute;
+            border-radius: 12px;
+            background-color: white;
+            visibility: hidden;
+            top: 130px;
+            height: 70px;
+            width: 120px;
+            left: 37px;
+        }
+        .checkMark{
+            margin: 0px;
+        }
+        #settingsBox{
+            z-index: 100;
+            position: absolute;
+            left: 650px;
+            height: 480px;
+            width: 420px;
+            border-style: solid;
+            border-radius: 15px;
+            background-color: white;
+            visibility: hidden;
+        }
+        .setting{
+            margin: 20px;
+            font-size: 20px;
+        }
+        #komiInput{
+            width: 50px;
+            margin-left: 8px;
+        }
+        .cancelorapply{
+            position: absolute;
+            background-color: white;
+            border-radius: 10px;
+            top: 430px;
+            height: 30px;
+        }
+        #applyButton{
+            left: 150px;
+        } 
+        #cancelButton{
+            left: 210px;
+        }
+    </style>
+</body>
+
+</html>
